@@ -3,15 +3,31 @@
 namespace TicTacToeConsole
 {
     class Program
-    {        
+    {
+        static bool player1Turn;
+        static bool gameEnded;
+
         static void Main(string[] args)
+        {                                 
+            GameArea area = new GameArea();
+            NewGame(area);         
+            //area.GameMoves[5] = Console.ReadLine();
+            //area.Draw();
+            //area.GameMoves[2] = Console.ReadLine();
+            //area.Draw();
+            //NewGame();
+            //while()
+
+
+        }
+
+        static void NewGame(GameArea area)
         {
-            GameArea area = new GameArea(20, 10, new System.Drawing.Point(12,1), ConsoleColor.DarkRed);
+            area.InitializeGameMoves();
             area.Draw();
-            //Console.ReadLine();
-
-
-        }    
+            player1Turn = true;
+            gameEnded = false;
+        }
     }
 }       
 
