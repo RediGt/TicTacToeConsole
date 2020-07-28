@@ -11,9 +11,11 @@ namespace TicTacToeConsole
         static void Main(string[] args)
         {                                 
             GameArea area = new GameArea();
+            area.InitializeGameMoves();
 
             string userChoice;
-            do
+            area.Draw();
+            /*do
             {
                 NewGame(area);
                 for ( ; ; )
@@ -25,7 +27,7 @@ namespace TicTacToeConsole
                     
                 userChoice = UserAction();
             }
-            while (userChoice != "q" && userChoice != "Q");
+            while (userChoice != "q" && userChoice != "Q");*/
         }
 
         static void NewGame(GameArea area)
