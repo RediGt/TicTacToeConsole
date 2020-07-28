@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 
 namespace TicTacToeConsole
 {
@@ -15,6 +16,7 @@ namespace TicTacToeConsole
 
             string userChoice;
             area.Draw();
+            //Console.WriteLine(Environment.CurrentDirectory);
             do
             {
                 NewGame(area);
@@ -57,13 +59,15 @@ namespace TicTacToeConsole
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  X  ";
                 player1Turn = false;
+                PlaySound("ClickSound.wav");
             }
             else
             {
-                Console.WriteLine("Payer \"0\" move.");
+                Console.WriteLine("Payer \"0\" move.");               
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  0  ";
                 player1Turn = true;
+                PlaySound("ClickSound2.wav");
             }
 
             turnCount++;
@@ -120,7 +124,17 @@ namespace TicTacToeConsole
 
             return cell;
         }
-       
+
+        static void PlaySound(string soundName)
+        {
+            var soundLocation = @"G:\C#\TicTacToeConsole\Sound\";
+            SoundPlayer snd = new System.Media.SoundPlayer
+            {
+                SoundLocation = soundLocation + soundName,
+            };
+            snd.Play();
+        }
+
         static void CheckForDraw()
         {
             if (turnCount == 9 && !gameEnded)
@@ -148,7 +162,6 @@ namespace TicTacToeConsole
                     area.GameMoves[2] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
             
             if (area.GameMoves[3] == area.GameMoves[4] && area.GameMoves[3] == area.GameMoves[5])
@@ -166,7 +179,6 @@ namespace TicTacToeConsole
                     area.GameMoves[5] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[6] == area.GameMoves[7] && area.GameMoves[6] == area.GameMoves[8])
@@ -184,7 +196,6 @@ namespace TicTacToeConsole
                     area.GameMoves[8] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[0] == area.GameMoves[3] && area.GameMoves[0] == area.GameMoves[6])
@@ -202,7 +213,6 @@ namespace TicTacToeConsole
                     area.GameMoves[6] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[1] == area.GameMoves[4] && area.GameMoves[1] == area.GameMoves[7])
@@ -220,7 +230,6 @@ namespace TicTacToeConsole
                     area.GameMoves[7] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[2] == area.GameMoves[5] && area.GameMoves[2] == area.GameMoves[8])
@@ -238,7 +247,6 @@ namespace TicTacToeConsole
                     area.GameMoves[8] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[0] == area.GameMoves[4] && area.GameMoves[0] == area.GameMoves[8])
@@ -256,7 +264,6 @@ namespace TicTacToeConsole
                     area.GameMoves[8] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
 
             if (area.GameMoves[2] == area.GameMoves[4] && area.GameMoves[2] == area.GameMoves[6])
@@ -274,13 +281,20 @@ namespace TicTacToeConsole
                     area.GameMoves[6] = "0 WIN";
                 }
                 gameEnded = true;
-                area.Draw();
             }
             
             if (gameEnded && player1Turn)
+            {
                 Console.WriteLine("Game ended! Player 0 winns!");
+                PlaySound("WinnerSound.wav");
+                area.Draw();
+            }               
             else if (gameEnded)
+            {
                 Console.WriteLine("Game ended! Player X winns!");
+                PlaySound("WinnerSound.wav");
+                area.Draw();
+            }
         }
     }
 }       
