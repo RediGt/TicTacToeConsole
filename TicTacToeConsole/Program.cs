@@ -40,6 +40,14 @@ namespace TicTacToeConsole
             turnCount = 0;
         }
 
+        static string UserAction()
+        {
+            Console.WriteLine("\nMake your choice:" +
+                    "\n'any key' - Continue" +
+                    "\n'q' - Quit the program");
+            return Console.ReadLine();
+        }
+
         static void PlayerMove(GameArea area)
         {
             int cellIndex;
@@ -127,56 +135,152 @@ namespace TicTacToeConsole
         {
             if (area.GameMoves[0] == area.GameMoves[1] && area.GameMoves[0] == area.GameMoves[2])
             {
+                if (area.GameMoves[0] == "  X  ")
+                {
+                    area.GameMoves[0] = "X WIN";
+                    area.GameMoves[1] = "X WIN";
+                    area.GameMoves[2] = "X WIN";
+                }
+                if (area.GameMoves[0] == "  0  ")
+                {
+                    area.GameMoves[0] = "0 WIN";
+                    area.GameMoves[1] = "0 WIN";
+                    area.GameMoves[2] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
             
             if (area.GameMoves[3] == area.GameMoves[4] && area.GameMoves[3] == area.GameMoves[5])
             {
+                if (area.GameMoves[3] == "  X  ")
+                {
+                    area.GameMoves[3] = "X WIN";
+                    area.GameMoves[4] = "X WIN";
+                    area.GameMoves[5] = "X WIN";
+                }
+                if (area.GameMoves[3] == "  0  ")
+                {
+                    area.GameMoves[3] = "0 WIN";
+                    area.GameMoves[4] = "0 WIN";
+                    area.GameMoves[5] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[6] == area.GameMoves[7] && area.GameMoves[6] == area.GameMoves[8])
             {
+                if (area.GameMoves[6] == "  X  ")
+                {
+                    area.GameMoves[6] = "X WIN";
+                    area.GameMoves[7] = "X WIN";
+                    area.GameMoves[8] = "X WIN";
+                }
+                if (area.GameMoves[6] == "  0  ")
+                {
+                    area.GameMoves[6] = "0 WIN";
+                    area.GameMoves[7] = "0 WIN";
+                    area.GameMoves[8] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[0] == area.GameMoves[3] && area.GameMoves[0] == area.GameMoves[6])
             {
+                if (area.GameMoves[0] == "  X  ")
+                {
+                    area.GameMoves[0] = "X WIN";
+                    area.GameMoves[3] = "X WIN";
+                    area.GameMoves[6] = "X WIN";
+                }
+                if (area.GameMoves[0] == "  0  ")
+                {
+                    area.GameMoves[0] = "0 WIN";
+                    area.GameMoves[3] = "0 WIN";
+                    area.GameMoves[6] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[1] == area.GameMoves[4] && area.GameMoves[1] == area.GameMoves[7])
             {
+                if (area.GameMoves[1] == "  X  ")
+                {
+                    area.GameMoves[1] = "X WIN";
+                    area.GameMoves[4] = "X WIN";
+                    area.GameMoves[7] = "X WIN";
+                }
+                if (area.GameMoves[1] == "  0  ")
+                {
+                    area.GameMoves[1] = "0 WIN";
+                    area.GameMoves[4] = "0 WIN";
+                    area.GameMoves[7] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[2] == area.GameMoves[5] && area.GameMoves[2] == area.GameMoves[8])
             {
+                if (area.GameMoves[2] == "  X  ")
+                {
+                    area.GameMoves[2] = "X WIN";
+                    area.GameMoves[5] = "X WIN";
+                    area.GameMoves[8] = "X WIN";
+                }
+                if (area.GameMoves[2] == "  0  ")
+                {
+                    area.GameMoves[2] = "0 WIN";
+                    area.GameMoves[5] = "0 WIN";
+                    area.GameMoves[8] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[0] == area.GameMoves[4] && area.GameMoves[0] == area.GameMoves[8])
             {
+                if (area.GameMoves[0] == "  X  ")
+                {
+                    area.GameMoves[0] = "X WIN";
+                    area.GameMoves[4] = "X WIN";
+                    area.GameMoves[8] = "X WIN";
+                }
+                if (area.GameMoves[0] == "  0  ")
+                {
+                    area.GameMoves[0] = "0 WIN";
+                    area.GameMoves[4] = "0 WIN";
+                    area.GameMoves[8] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
 
             if (area.GameMoves[2] == area.GameMoves[4] && area.GameMoves[2] == area.GameMoves[6])
             {
+                if (area.GameMoves[2] == "  X  ")
+                {
+                    area.GameMoves[2] = "X WIN";
+                    area.GameMoves[4] = "X WIN";
+                    area.GameMoves[6] = "X WIN";
+                }
+                if (area.GameMoves[2] == "  0  ")
+                {
+                    area.GameMoves[2] = "0 WIN";
+                    area.GameMoves[4] = "0 WIN";
+                    area.GameMoves[6] = "0 WIN";
+                }
                 gameEnded = true;
+                area.Draw();
             }
             
             if (gameEnded && player1Turn)
                 Console.WriteLine("Game ended! Player 0 winns!");
             else if (gameEnded)
                 Console.WriteLine("Game ended! Player X winns!");
-        }
-
-        static string UserAction()
-        {
-            Console.WriteLine("\nMake your choice:" +
-                    "\n'any key' - Continue" +
-                    "\n'q' - Quit the program");
-            return Console.ReadLine();
         }
     }
 }       

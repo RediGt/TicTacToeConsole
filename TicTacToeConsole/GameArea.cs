@@ -97,11 +97,11 @@ namespace TicTacToeConsole
         {
             for (int i = 0; i < drawArea.Length; i++)
             {
-                if (drawArea[i] == "  X  ")
+                if (drawArea[i] == "  X  " || drawArea[i] == "X WIN")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;                
                 }
-                else if (drawArea[i] == "  0  ")
+                else if (drawArea[i] == "  0  " || drawArea[i] == "0 WIN")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                 }               
