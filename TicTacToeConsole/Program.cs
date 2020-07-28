@@ -15,7 +15,7 @@ namespace TicTacToeConsole
 
             string userChoice;
             area.Draw();
-            /*do
+            do
             {
                 NewGame(area);
                 for ( ; ; )
@@ -27,7 +27,7 @@ namespace TicTacToeConsole
                     
                 userChoice = UserAction();
             }
-            while (userChoice != "q" && userChoice != "Q");*/
+            while (userChoice != "q" && userChoice != "Q");
         }
 
         static void NewGame(GameArea area)
@@ -47,14 +47,14 @@ namespace TicTacToeConsole
             {
                 Console.WriteLine("Payer \"X\" move.");
                 cellIndex = InputCheckOfCellNo(area);
-                area.GameMoves[cellIndex - 1] = "X";
+                area.GameMoves[cellIndex - 1] = "  X  ";
                 player1Turn = false;
             }
             else
             {
                 Console.WriteLine("Payer \"0\" move.");
                 cellIndex = InputCheckOfCellNo(area);
-                area.GameMoves[cellIndex - 1] = "0";
+                area.GameMoves[cellIndex - 1] = "  0  ";
                 player1Turn = true;
             }
 
@@ -96,7 +96,7 @@ namespace TicTacToeConsole
                     Console.Write("Input No of unoccupied cell one more: ");
                     continue;
                 }
-                else if (userInput != area.GameMoves[cell - 1])
+                else if ("( " + userInput + " )" != area.GameMoves[cell - 1])
                 {
                     correctInput = false;
                     Console.WriteLine("Cell is occupied!");
