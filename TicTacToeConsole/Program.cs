@@ -51,8 +51,6 @@ namespace TicTacToeConsole
             turnCount = 0;
         }
 
-
-
         static string UserAction()
         {
             Console.WriteLine("\nMake your choice:" +
@@ -85,7 +83,6 @@ namespace TicTacToeConsole
             turnCount++;
             Console.Clear();
             area.Draw();
-            //Console.WriteLine(turnCount);
             CheckForWin(area);
             CheckForDraw();
         }
@@ -95,53 +92,51 @@ namespace TicTacToeConsole
             string userInput;
             int cell = 0;
             bool correctInput = false;
-            bool gameLoaded = false;
 
+            Console.Write("Insert No of cell or 's' to save: ");
             do
             {
-                Console.Write("Insert No of cell or 's' to save: ");
                 userInput = Console.ReadLine().ToUpper();
                                 
-                switch(userInput)
+                if (userInput == "S")
                 {
-                    case "S":
-                        area.playerTurnCount = turnCount;
-                        JsonIO.SaveToFile(area);
-                        Console.WriteLine("Game saved");
-                        break;
-                    default:
-                        try
-                        {
-                            cell = Convert.ToInt32(userInput);
-                        }
-                        catch
-                        {
-                            correctInput = false;
-                            Console.WriteLine("Incorrect input!");
-                            Console.Write("Input No of unoccupied cell one more: ");
-                            continue;
-                        }                           
-
-                        if (cell < 1 || cell > 9)
-                        {
-                            correctInput = false;
-                            Console.WriteLine("Incorrect input!");
-                            Console.Write("Input No of unoccupied cell one more: ");
-                            continue;
-                        }
-                        else if ("( " + userInput + " )" != area.GameMoves[cell - 1])
-                        {
-                            correctInput = false;
-                            Console.WriteLine("Cell is occupied!");
-                            Console.Write("Input No of unoccupied cell one more: ");
-                            continue;
-                        }
-                        else
-                        {
-                            correctInput = true;                   
-                        }
-                        break;
+                    area.playerTurnCount = turnCount;
+                    JsonIO.SaveToFile(area);
+                    Console.WriteLine("Game saved");
                 }
+                else
+                {
+                    try
+                    {
+                        cell = Convert.ToInt32(userInput);
+                    }
+                    catch
+                    {
+                        correctInput = false;
+                        Console.WriteLine("Incorrect input!");
+                        Console.Write("Input No of unoccupied cell or 's' to save: ");
+                        continue;
+                    }                           
+
+                    if (cell < 1 || cell > 9)
+                    {
+                        correctInput = false;
+                        Console.WriteLine("Incorrect input!");
+                        Console.Write("Input No of unoccupied cell or 's' to save: ");
+                        continue;
+                    }
+                    else if ("( " + userInput + " )" != area.GameMoves[cell - 1])
+                    {
+                        correctInput = false;
+                        Console.WriteLine("Cell is occupied!");
+                        Console.Write("Input No of unoccupied cell or 's' to save: ");
+                        continue;
+                    }
+                    else
+                    {
+                        correctInput = true;                   
+                    }
+                }                
             }
             while (!correctInput);
 
