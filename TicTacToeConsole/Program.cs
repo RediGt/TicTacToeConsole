@@ -24,10 +24,10 @@ namespace TicTacToeConsole
                     NewGame(area);
                 else if (userChoice == "L")
                 {
-                    area = JsonIO.LoadFromFile();
-                    Console.Clear();
+                    area = JsonIO.LoadFromFile();                    
                     gameEnded = false;
                     turnCount = area.playerTurnCount;
+                    Console.Clear();
                     area.Draw();
                 }
 
@@ -38,7 +38,7 @@ namespace TicTacToeConsole
                     PlayerMove(area);
                 }                  
             }
-            while (userChoice != "q" && userChoice != "Q");
+            while (userChoice != "Q");
         }
 
         static void NewGame(GameArea area)
@@ -65,7 +65,7 @@ namespace TicTacToeConsole
             int cellIndex;
             if (area.player1Turn)
             {
-                Console.WriteLine("Payer \"X\" move.");
+                Console.WriteLine("Payer 'X' move.");
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  X  ";
                 area.player1Turn = false;
@@ -73,7 +73,7 @@ namespace TicTacToeConsole
             }
             else
             {
-                Console.WriteLine("Payer \"0\" move.");               
+                Console.WriteLine("Payer '0' move.");               
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  0  ";
                 area.player1Turn = true;
