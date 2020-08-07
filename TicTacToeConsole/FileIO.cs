@@ -17,7 +17,6 @@ namespace TicTacToeConsole
             };
             jsonString = System.Text.Json.JsonSerializer.Serialize(area, options);
 
-            //Console.WriteLine(jsonString);
             File.WriteAllText(GetGameFile(), jsonString);
         }
 
@@ -36,10 +35,6 @@ namespace TicTacToeConsole
                 }
                 reader.Close();
 
-               /* var options = new JsonSerializerOptions
-                {
-                    IgnoreNullValues = true
-                };*/
                 return System.Text.Json.JsonSerializer.Deserialize<GameArea>(json);
             }
             catch

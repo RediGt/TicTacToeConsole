@@ -5,7 +5,6 @@ namespace TicTacToeConsole
 {
     class Program
     {
-        //static bool player1Turn;
         static bool gameEnded;
         static int turnCount;
 
@@ -16,7 +15,7 @@ namespace TicTacToeConsole
 
             string userChoice;
             area.Draw();
-            //Console.WriteLine(Environment.CurrentDirectory);
+
             do
             {
                 NewGame(area);
@@ -84,7 +83,6 @@ namespace TicTacToeConsole
             int cell = 0;
             bool correctInput = false;
 
-            //Console.Write("Insert No of cell, \"s\" to save or \"l\" to load: ");
             do
             {
                 Console.Write("Insert No of cell, \"s\" to save or \"l\" to load: ");
