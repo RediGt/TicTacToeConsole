@@ -18,15 +18,25 @@ namespace TicTacToeConsole
 
             do
             {
-                NewGame(area);
+                userChoice = UserAction();
+
+                if (userChoice != "L" && userChoice != "Q")
+                    NewGame(area);
+                else if (userChoice == "L")
+                {
+                    area = JsonIO.LoadFromFile();
+                    Console.Clear();
+                    gameEnded = false;
+                    turnCount = area.playerTurnCount;
+                    area.Draw();
+                }
+
                 for ( ; ; )
                 {
                     if (gameEnded)
                         break;
                     PlayerMove(area);
-                }
-                    
-                userChoice = UserAction();
+                }                  
             }
             while (userChoice != "q" && userChoice != "Q");
         }
@@ -41,12 +51,15 @@ namespace TicTacToeConsole
             turnCount = 0;
         }
 
+
+
         static string UserAction()
         {
             Console.WriteLine("\nMake your choice:" +
                     "\n'any key' - Continue" +
+                    "\n'l' - Load Game" +
                     "\n'q' - Quit the program");
-            return Console.ReadLine();
+            return Console.ReadLine().ToUpper();
         }
 
         static void PlayerMove(GameArea area)
@@ -72,7 +85,7 @@ namespace TicTacToeConsole
             turnCount++;
             Console.Clear();
             area.Draw();
-
+            //Console.WriteLine(turnCount);
             CheckForWin(area);
             CheckForDraw();
         }
@@ -82,22 +95,19 @@ namespace TicTacToeConsole
             string userInput;
             int cell = 0;
             bool correctInput = false;
+            bool gameLoaded = false;
 
             do
             {
-                Console.Write("Insert No of cell, \"s\" to save or \"l\" to load: ");
+                Console.Write("Insert No of cell or 's' to save: ");
                 userInput = Console.ReadLine().ToUpper();
                                 
                 switch(userInput)
                 {
                     case "S":
+                        area.playerTurnCount = turnCount;
                         JsonIO.SaveToFile(area);
                         Console.WriteLine("Game saved");
-                        break;
-                    case "L":
-                        area = JsonIO.LoadFromFile();
-                        area.Draw();
-                        PlayerMove(area);
                         break;
                     default:
                         try
@@ -132,7 +142,6 @@ namespace TicTacToeConsole
                         }
                         break;
                 }
-                
             }
             while (!correctInput);
 

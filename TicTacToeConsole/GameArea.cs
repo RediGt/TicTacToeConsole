@@ -25,6 +25,8 @@ namespace TicTacToeConsole
 
         public bool player1Turn { get; set; } = true;
 
+        public int playerTurnCount { get; set; } = 0;
+
         public void Draw()
         {
             string offset = "";
@@ -34,8 +36,7 @@ namespace TicTacToeConsole
             string startElement;
             string betweenElement;
             string endElement;
-            //string[] drawArea = new string[31];
-
+ 
             for (int i = 0; i < Location.X; i++)
                 offset += " ";
             for (int i = 0; i < 7; i++)
