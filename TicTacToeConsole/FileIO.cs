@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+
+namespace TicTacToeConsole
+{
+    class JsonIO
+    {
+        public static void SaveToFile(GameArea area)
+        {
+            string jsonString;
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            };
+            jsonString = System.Text.Json.JsonSerializer.Serialize(area, options);
+
+            //Console.WriteLine(jsonString);
+            File.WriteAllText(GetGameFile(), jsonString);
+        }
+
+        public static GameArea LoadFromFile()
+        {
+            try
+            {
+                StreamReader reader = new StreamReader(GetGameFile());
+                String line = reader.ReadLine();
+                String json = "";
+
+                while (line != null)
+                {
+                    json += line;
+                    line = reader.ReadLine();
+                }
+                reader.Close();
+
+               /* var options = new JsonSerializerOptions
+                {
+                    IgnoreNullValues = true
+                };*/
+                return System.Text.Json.JsonSerializer.Deserialize<GameArea>(json);
+            }
+            catch
+            {
+                Console.WriteLine("Error loading the game. A new game is created.");
+                return null;
+            }
+        }
+
+        public static string GetGameFile()
+        {
+            string filename = Directory.GetCurrentDirectory();
+            filename += @"\TicTacToe.json";
+
+            return filename;
+        }
+    }
+}

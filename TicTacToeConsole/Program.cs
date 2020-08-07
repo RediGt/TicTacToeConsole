@@ -5,7 +5,7 @@ namespace TicTacToeConsole
 {
     class Program
     {
-        static bool player1Turn;
+        //static bool player1Turn;
         static bool gameEnded;
         static int turnCount;
 
@@ -37,7 +37,7 @@ namespace TicTacToeConsole
             area.InitializeGameMoves();
             Console.Clear();
             area.Draw();
-            player1Turn = true;
+            area.player1Turn = true;
             gameEnded = false;
             turnCount = 0;
         }
@@ -53,12 +53,12 @@ namespace TicTacToeConsole
         static void PlayerMove(GameArea area)
         {
             int cellIndex;
-            if (player1Turn)
+            if (area.player1Turn)
             {
                 Console.WriteLine("Payer \"X\" move.");
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  X  ";
-                player1Turn = false;
+                area.player1Turn = false;
                 PlaySound("ClickSound.wav");
             }
             else
@@ -66,7 +66,7 @@ namespace TicTacToeConsole
                 Console.WriteLine("Payer \"0\" move.");               
                 cellIndex = InputCheckOfCellNo(area);
                 area.GameMoves[cellIndex - 1] = "  0  ";
-                player1Turn = true;
+                area.player1Turn = true;
                 PlaySound("ClickSound2.wav");
             }
 
@@ -84,41 +84,57 @@ namespace TicTacToeConsole
             int cell = 0;
             bool correctInput = false;
 
-            Console.Write("Insert No of cell: ");
+            //Console.Write("Insert No of cell, \"s\" to save or \"l\" to load: ");
             do
             {
-                userInput = Console.ReadLine();
+                Console.Write("Insert No of cell, \"s\" to save or \"l\" to load: ");
+                userInput = Console.ReadLine().ToUpper();
                                 
-                try
+                switch(userInput)
                 {
-                    cell = Convert.ToInt32(userInput);
-                }
-                catch
-                {
-                    correctInput = false;
-                    Console.WriteLine("Incorrect input!");
-                    Console.Write("Input No of unoccupied cell one more: ");
-                    continue;
-                }                           
+                    case "S":
+                        JsonIO.SaveToFile(area);
+                        Console.WriteLine("Game saved");
+                        break;
+                    case "L":
+                        area = JsonIO.LoadFromFile();
+                        area.Draw();
+                        PlayerMove(area);
+                        break;
+                    default:
+                        try
+                        {
+                            cell = Convert.ToInt32(userInput);
+                        }
+                        catch
+                        {
+                            correctInput = false;
+                            Console.WriteLine("Incorrect input!");
+                            Console.Write("Input No of unoccupied cell one more: ");
+                            continue;
+                        }                           
 
-                if (cell < 1 || cell > 9)
-                {
-                    correctInput = false;
-                    Console.WriteLine("Incorrect input!");
-                    Console.Write("Input No of unoccupied cell one more: ");
-                    continue;
+                        if (cell < 1 || cell > 9)
+                        {
+                            correctInput = false;
+                            Console.WriteLine("Incorrect input!");
+                            Console.Write("Input No of unoccupied cell one more: ");
+                            continue;
+                        }
+                        else if ("( " + userInput + " )" != area.GameMoves[cell - 1])
+                        {
+                            correctInput = false;
+                            Console.WriteLine("Cell is occupied!");
+                            Console.Write("Input No of unoccupied cell one more: ");
+                            continue;
+                        }
+                        else
+                        {
+                            correctInput = true;                   
+                        }
+                        break;
                 }
-                else if ("( " + userInput + " )" != area.GameMoves[cell - 1])
-                {
-                    correctInput = false;
-                    Console.WriteLine("Cell is occupied!");
-                    Console.Write("Input No of unoccupied cell one more: ");
-                    continue;
-                }
-                else
-                {
-                    correctInput = true;                   
-                }
+                
             }
             while (!correctInput);
 
@@ -283,7 +299,7 @@ namespace TicTacToeConsole
                 gameEnded = true;
             }
             
-            if (gameEnded && player1Turn)
+            if (gameEnded && area.player1Turn)
             {
                 Console.WriteLine("Game ended! Player 0 winns!");
                 PlaySound("WinnerSound.wav");
